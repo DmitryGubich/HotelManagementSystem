@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-# from hotels.router import router as router_hotels
+from app.bookings.router import router as booking_router
 
 app = FastAPI(title="Hotel Management System")
 
-# app.include_router(router_hotels)
+app.include_router(booking_router)
