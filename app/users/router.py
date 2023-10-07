@@ -1,35 +1,23 @@
-from app.users.auth import get_password_hash
-from app.users.schemas import SchemaUserSignUp
+from app.users.schemas import SchemaUseLogIn, SchemaUser, SchemaUserSignUp
 from app.users.service import UserService
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 
 auth_router = APIRouter(
     prefix="/auth",
     tags=["Auth"],
 )
 
-router_users = APIRouter(
+users_router = APIRouter(
     prefix="/users",
     tags=["Users"],
 )
 
 
 @auth_router.post("/sign-up")
-async def sign_up(user_data: SchemaUserSignUp):
-    existing_user = await UserService.find_one_or_none(email=user_data.email)
+async def sign_up(user_data: SchemaUserSignUp) -> SchemaUser:
+    return await UserService.sign_up(user_data=user_data)
 
-    if existing_user:
-        raise HTTPException(
-            status_code=409, detail="User with given email already exists"
-        )
 
-    if user_data.password != user_data.repeat_password:
-        raise HTTPException(status_code=409, detail="Passwords must match")
-
-    hashed_password = get_password_hash(user_data.password)
-    new_user = await UserService.create(
-        email=user_data.email, hashed_password=hashed_password
-    )
-
-    if not new_user:
-        raise HTTPException(status_code=500)
+@auth_router.post("/login")
+async def login(user_data: SchemaUseLogIn) -> str:
+    return await UserService.login(user_data=user_data)

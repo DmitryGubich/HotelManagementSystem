@@ -1,5 +1,5 @@
 from app.database import Base, async_session_maker
-from sqlalchemy import insert, select
+from sqlalchemy import insert, literal_column, select
 
 
 class BaseRepository:
@@ -28,7 +28,7 @@ class BaseRepository:
 
     @classmethod
     async def create(cls, **data):
-        query = insert(cls.model).values(**data).returning(cls.model.id)
+        query = insert(cls.model).values(**data).returning(literal_column("*"))
         async with async_session_maker() as session:
             result = await session.execute(query)
             await session.commit()
