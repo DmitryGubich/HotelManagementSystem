@@ -13,6 +13,15 @@ class BaseService:
         return result
 
     @classmethod
+    async def find_one_or_none(cls, **filter_by):
+        result = await cls.repository.find_one_or_none(**filter_by)
+        return result
+
+    @classmethod
     async def find_all(cls, **filter_by):
         result = await cls.repository.find_all(**filter_by)
         return result
+
+    @classmethod
+    async def create(cls, **data):
+        await cls.repository.create(**data)
