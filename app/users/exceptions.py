@@ -15,3 +15,8 @@ class UserUnauthorizedException(BaseException):
 class PasswordsDoNotMatchException(BaseException):
     status_code = status.HTTP_409_CONFLICT
     detail = "Passwords must match"
+
+
+class AuthorizationTokenNotFoundException(BaseException):
+    status_code = status.HTTP_401_UNAUTHORIZED
+    detail = "Authorization token was not provided"

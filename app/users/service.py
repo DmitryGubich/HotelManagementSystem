@@ -22,11 +22,10 @@ class UserService(BaseService):
         if user_data.password != user_data.repeat_password:
             raise PasswordsDoNotMatchException
 
-        hashed_password = get_password_hash(user_data.password)
         new_user = await cls.create(
             email=user_data.email,
             username=user_data.username,
-            hashed_password=hashed_password,
+            hashed_password=get_password_hash(user_data.password),
         )
 
         if not new_user:
@@ -39,4 +38,4 @@ class UserService(BaseService):
         user = await cls.find_one_or_none(email=user_data.email)
         if not user or not verify_password(user_data.password, user.hashed_password):
             raise UserUnauthorizedException
-        return create_access_token({"sub": user.id})
+        return create_access_token({"sub": user.username})
