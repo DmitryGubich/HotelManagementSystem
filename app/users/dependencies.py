@@ -1,14 +1,19 @@
+from typing import Annotated
+
 from app.config import settings
-from app.exceptions import EntityNotFoundException
-from app.users.exceptions import AuthorizationTokenNotFoundException
+from app.users.exceptions import (
+    AuthorizationTokenNotFoundException,
+    UserNotFoundException,
+)
 from app.users.service import UserService
-from fastapi import Request
+from fastapi import Depends
+from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
-async def get_current_user(request: Request):
-    token = request.headers.get("Authorization")
 
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     if not token:
         raise AuthorizationTokenNotFoundException
 
@@ -18,6 +23,6 @@ async def get_current_user(request: Request):
     user = await UserService.find_one_or_none(username=username)
 
     if not user:
-        raise EntityNotFoundException
+        raise UserNotFoundException
 
     return user

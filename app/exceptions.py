@@ -11,4 +11,4 @@ class BaseException(HTTPException):
 
 class EntityNotFoundException(BaseException):
     status_code = status.HTTP_404_NOT_FOUND
-    detail = "Entity does not exist."
+    detail = "Entity does not exist"

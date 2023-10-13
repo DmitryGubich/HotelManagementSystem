@@ -1,4 +1,4 @@
-from app.exceptions import BaseException
+from app.exceptions import BaseException, EntityNotFoundException
 from fastapi import status
 
 
@@ -20,3 +20,7 @@ class PasswordsDoNotMatchException(BaseException):
 class AuthorizationTokenNotFoundException(BaseException):
     status_code = status.HTTP_401_UNAUTHORIZED
     detail = "Authorization token was not provided"
+
+
+class UserNotFoundException(EntityNotFoundException):
+    detail = "User does not exist"
