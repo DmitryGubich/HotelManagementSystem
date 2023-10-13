@@ -5,6 +5,7 @@ from app.users.exceptions import (
     AuthorizationTokenNotFoundException,
     UserNotFoundException,
 )
+from app.users.models import Users
 from app.users.service import UserService
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
@@ -13,7 +14,7 @@ from jose import jwt
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> Users:
     if not token:
         raise AuthorizationTokenNotFoundException
 

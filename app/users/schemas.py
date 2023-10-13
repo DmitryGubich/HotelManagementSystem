@@ -17,3 +17,7 @@ class SchemaUser(BaseModel):
     id: int
     email: EmailStr
     username: str
+
+
+class Token(BaseModel):
+    access_token: str
