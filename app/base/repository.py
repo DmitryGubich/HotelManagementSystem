@@ -28,7 +28,7 @@ class BaseRepository:
 
     @classmethod
     async def create(cls, **data):
-        query = insert(cls.model).values(**data).returning(literal_column("*"))
+        query = insert(cls.model).values(**data).returning(cls.model)
         async with async_session_maker() as session:
             result = await session.execute(query)
             await session.commit()

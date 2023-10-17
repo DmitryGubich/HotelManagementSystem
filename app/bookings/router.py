@@ -15,3 +15,8 @@ async def get_bookings(user: Users = Depends(get_current_user)) -> list[SchemaBo
 @router.get("/{booking_id}")
 async def get_booking(booking_id: int) -> SchemaBooking:
     return await BookingService.find_by_id(booking_id)
+
+
+@router.post("")
+async def create_bookings(user: Users = Depends(get_current_user)) -> SchemaBooking:
+    return await BookingService.create(user_id=user.id)
