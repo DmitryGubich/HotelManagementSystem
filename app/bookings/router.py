@@ -1,4 +1,4 @@
-from app.bookings.schemas import SchemaBooking
+from app.bookings.schemas import SchemaBooking, SchemaCreateBooking
 from app.bookings.service import BookingService
 from app.users.dependencies import get_current_user
 from app.users.models import Users
@@ -18,5 +18,12 @@ async def get_booking(booking_id: int) -> SchemaBooking:
 
 
 @router.post("")
-async def create_bookings(user: Users = Depends(get_current_user)) -> SchemaBooking:
-    return await BookingService.create(user_id=user.id)
+async def create_bookings(
+    booking: SchemaCreateBooking, user: Users = Depends(get_current_user)
+) -> SchemaBooking:
+    return await BookingService.create(
+        user_id=user.id,
+        room_id=booking.room_id,
+        date_from=booking.date_from,
+        date_to=booking.date_to,
+    )
