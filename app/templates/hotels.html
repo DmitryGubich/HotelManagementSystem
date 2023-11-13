@@ -10,9 +10,19 @@
     <div>
         {% for hotel in hotels %}
         <div style="display:flex; margin-bottom: 15px; margin-left: 300px;">
-            <div>
+            <img src="{{ url_for('static', path='images/' + hotel.image_id|string + '.webp') }}"
+                 alt="Photo"
+                 width="300">
+            <div style="margin-left: 15px;">
                 <h1>{{hotel.name}}</h1>
-                <h4>{{hotel.location}}</h4>
+                <p>Location: {{hotel.location}}</p>
+                Services:
+                <ul>
+                {% for service in hotel.services %}
+                <li>{{service}}</li>
+                {% endfor %}
+                </ul>
+                <p>Rooms left: {{hotel.rooms_quantity}}</p>
             </div>
         </div>
         {% endfor %}
