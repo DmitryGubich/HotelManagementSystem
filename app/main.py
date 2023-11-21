@@ -7,10 +7,10 @@ from app.bookings.router import router as booking_router
 from app.database import engine
 from app.hotels.admin import HotelsAdmin
 from app.hotels.router import router as hotel_router
-from app.images.router import router as image_router
+from app.media.router import image_router as image_router
+from app.media.router import template_router as template_router
 from app.rooms.admin import RoomsAdmin
 from app.rooms.router import router as room_router
-from app.templates.router import router as template_router
 from app.users.admin import UserAdmin
 from app.users.router import auth_router as auth_router
 

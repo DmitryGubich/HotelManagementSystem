@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Cosmos Collection Altay Resort",
+        "location": "Roeme, Italy",
+        "services": ["Wi-Fi", "Parking", "Gym"],
+        "rooms_quantity": 15,
+        "image_id": 1
+    },
+    {
+        "name": "Skala",
+        "location": "Barcelona, Spain",
+        "services": ["Wi-Fi", "Parking"],
+        "rooms_quantity": 23,
+        "image_id": 2
+    },
+    {
+        "name": "Heaven resort",
+        "location": "Paris, France",
+        "services": ["Parking"],
+        "rooms_quantity": 30,
+        "image_id": 3
+    },
+    {
+        "name": "Super hotel",
+        "location": "Berlin, Germany",
+        "services": ["Wi-Fi", "Pool", "Gym"],
+        "rooms_quantity": 55,
+        "image_id": 4
+    },
+    {
+        "name": "Palace",
+        "location": "Warsaw, Poland",
+        "services": ["Wi-Fi", "Gym"],
+        "rooms_quantity": 22,
+        "image_id": 5
+    },
+    {
+        "name": "Bridge Resort",
+        "location": "Londong, United Kingdom",
+        "services": ["Wi-Fi", "Pool"],
+        "rooms_quantity": 45,
+        "image_id": 6
+    }
+]
