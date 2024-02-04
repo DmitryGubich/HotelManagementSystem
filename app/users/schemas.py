@@ -9,7 +9,7 @@ class SchemaUserSignUp(BaseModel):
 
 
 class SchemaUseLogIn(BaseModel):
-    email: EmailStr
+    username: str
     password: str
 
 

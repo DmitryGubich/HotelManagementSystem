@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Any
 
 from app.base.service import BaseService
 from app.users.auth import create_access_token, get_password_hash, verify_password
@@ -9,7 +9,7 @@ from app.users.exceptions import (
     UserUnauthorizedException,
 )
 from app.users.repository import UserRepository
-from app.users.schemas import SchemaUser, SchemaUserSignUp, Token
+from app.users.schemas import SchemaUseLogIn, SchemaUser, SchemaUserSignUp, Token
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordRequestForm
 
@@ -38,10 +38,8 @@ class UserService(BaseService):
         return new_user
 
     @classmethod
-    async def login(
-        cls, form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
-    ) -> Token:
-        user = await cls.find_one_or_none(username=form_data.username)
-        if not user or not verify_password(form_data.password, user.hashed_password):
+    async def login(cls, data: Any) -> Token:
+        user = await cls.find_one_or_none(username=data.username)
+        if not user or not verify_password(data.password, user.hashed_password):
             raise UserUnauthorizedException
         return Token(access_token=create_access_token({"sub": user.username}))
