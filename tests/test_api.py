@@ -27,7 +27,7 @@ async def test_sign_up(ac: AsyncClient, email, password, code):
     "username, password, code",
     [
         ("test-example", "test", 200),
-        ("admin-example", "artem", 200),
+        ("admin-example", "test", 200),
     ],
 )
 async def test_login(ac: AsyncClient, username, password, code):
