@@ -1,0 +1,36 @@
+version: "3.11"
+services:
+  db:
+    container_name: database
+    image: postgres:15
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
+
+  redis:
+    container_name: redis_cache
+    image: redis:7
+
+  app:
+    container_name: booking_app
+    build:
+      context: .
+    env_file:
+      - .env
+    command: ["./scripts/start.sh"]
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    container_name: celery_app
+    build:
+      context: .
+    command: ["./scripts/celery.sh", "celery"]
+    env_file:
+      - .env
+    depends_on:
+      - redis

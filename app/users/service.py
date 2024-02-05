@@ -1,4 +1,4 @@
-from typing import Annotated, Any
+from typing import Any
 
 from app.base.service import BaseService
 from app.users.auth import create_access_token, get_password_hash, verify_password
@@ -9,9 +9,7 @@ from app.users.exceptions import (
     UserUnauthorizedException,
 )
 from app.users.repository import UserRepository
-from app.users.schemas import SchemaUseLogIn, SchemaUser, SchemaUserSignUp, Token
-from fastapi import Depends
-from fastapi.security import OAuth2PasswordRequestForm
+from app.users.schemas import SchemaUser, SchemaUserSignUp, Token
 
 
 class UserService(BaseService):
