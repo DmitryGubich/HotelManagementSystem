@@ -2,8 +2,9 @@
 Hotel management system project to try FastAPI framework
 
 ### Commands:
-- To run the app `docker compose up`
-- To run tests `docker exec app pytest`
+- To run the app `make start`
+- To run tests `make start-app -> make test`
+- To stop the app `make stop`
 
 ### URLs:
 - Swagger docs http://0.0.0.0:8000/docs
