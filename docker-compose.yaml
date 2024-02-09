@@ -3,6 +3,8 @@ services:
   db:
     container_name: db
     image: postgres:15
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
     env_file:
       - .env
     ports:
@@ -34,3 +36,27 @@ services:
       - .env
     depends_on:
       - redis
+
+  prometheus:
+    image: prom/prometheus:v2.43.0
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheusdata:/prometheus
+    restart: unless-stopped
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:9.4.7
+    container_name: grafana
+    volumes:
+      - grafanadata:/var/lib/grafana
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+
+volumes:
+  postgresdata:
+  grafanadata:
+  prometheusdata:
