@@ -18,9 +18,11 @@ services:
     container_name: app
     build:
       context: .
+    volumes:
+      - ./:/code
     env_file:
       - .env
-    command: ["./scripts/start.sh"]
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - 8000:8000
     depends_on:
@@ -31,7 +33,7 @@ services:
     container_name: celery
     build:
       context: .
-    command: ["./scripts/celery.sh", "celery"]
+    command: celery --app=app.tasks.celery:celery worker -l INFO
     env_file:
       - .env
     depends_on:

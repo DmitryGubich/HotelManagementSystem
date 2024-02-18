@@ -9,5 +9,5 @@ router = APIRouter(prefix="", tags=["Rooms"])
 
 @router.get("/{hotel_id}/rooms")
 async def get_rooms(hotel_id: int) -> List[SchemaRoom]:
-    rooms = await RoomService.find_all(hotel_id)
+    rooms = await RoomService.find_all_rooms(hotel_id=hotel_id)
     return rooms

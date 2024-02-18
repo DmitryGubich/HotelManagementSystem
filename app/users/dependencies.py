@@ -21,7 +21,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> Use
     payload = jwt.decode(token, settings.SECRET_KEY, settings.ALGORITHM)
     username: str = payload.get("sub")
 
-    user = await UserService.find_one_or_none(username=username)
+    user = await UserService.filter(username=username)
 
     if not user:
         raise UserNotFoundException

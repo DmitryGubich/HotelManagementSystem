@@ -17,7 +17,7 @@ class UserService(BaseService):
 
     @classmethod
     async def sign_up(cls, user_data: SchemaUserSignUp) -> SchemaUser:
-        existing_user = await cls.find_one_or_none(email=user_data.email)
+        existing_user = await cls.filter(email=user_data.email)
 
         if existing_user:
             raise UserAlreadyExistsException
@@ -37,7 +37,7 @@ class UserService(BaseService):
 
     @classmethod
     async def login(cls, data: Any) -> Token:
-        user = await cls.find_one_or_none(username=data.username)
+        user = await cls.filter(username=data.username)
         if not user or not verify_password(data.password, user.hashed_password):
             raise UserUnauthorizedException
         return Token(access_token=create_access_token({"sub": user.username}))

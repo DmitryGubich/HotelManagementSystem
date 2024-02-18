@@ -23,13 +23,6 @@ async def sign_up(user_data: SchemaUserSignUp):
     await UserService.sign_up(user_data=user_data)
 
 
-@auth_router.post("/login-form")
-async def login_form(
-    form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
-) -> Token:
-    return await UserService.login(data=form_data)
-
-
 @auth_router.post("/login")
 async def login(user_data: SchemaUseLogIn):
     return await UserService.login(data=user_data)
@@ -38,3 +31,10 @@ async def login(user_data: SchemaUseLogIn):
 @auth_router.get("/me")
 async def me(user: Users = Depends(get_current_user)) -> SchemaUser:
     return SchemaUser(id=user.id, email=user.email, username=user.username)
+
+
+@auth_router.post("/login-form")
+async def login_form(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()]
+) -> Token:
+    return await UserService.login(data=form_data)
