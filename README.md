@@ -10,3 +10,4 @@ Hotel management system project to try FastAPI framework
 - Swagger docs http://0.0.0.0:8000/docs
 - Grafana dashboard http://0.0.0.0:3000/d/_eX4mpl315/fastapi-dashboard
 - Prometheus dashboard http://localhost:9090/targets
+- Sentry dashboard https://dmitry-dsd.sentry.io/issues/?project=4506775912185856

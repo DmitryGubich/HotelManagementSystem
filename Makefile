@@ -6,7 +6,7 @@ start:
 	docker-compose up
 
 start-app:
-	docker-compose up app
+	docker-compose up app db
 
 test:
 	$(app_cmd) pytest

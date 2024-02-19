@@ -1,3 +1,4 @@
+import sentry_sdk
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from prometheus_fastapi_instrumentator import Instrumentator
@@ -5,6 +6,7 @@ from sqladmin import Admin
 
 from app.bookings.admin import BookingsAdmin
 from app.bookings.router import router as booking_router
+from app.config import settings
 from app.database import engine
 from app.hotels.admin import HotelsAdmin
 from app.hotels.router import router as hotel_router
@@ -14,6 +16,13 @@ from app.rooms.admin import RoomsAdmin
 from app.rooms.router import router as room_router
 from app.users.admin import UserAdmin
 from app.users.router import auth_router as auth_router
+
+# sentry
+sentry_sdk.init(
+    dsn=settings.SENTRY_DSN,
+    traces_sample_rate=1.0,
+    profiles_sample_rate=1.0,
+)
 
 # app
 app = FastAPI(title="Hotel Management System")
